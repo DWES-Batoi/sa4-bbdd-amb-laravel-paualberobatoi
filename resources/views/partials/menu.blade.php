@@ -5,6 +5,9 @@
     {{-- Opcional: activarem l'enllaç d'equips quan el service estiga creat --}}
     <li><a class="text-white hover:underline" href="{{ route('equips.index') }}">Guia d'Equips</a></li>
 
-    <li><a class="text-white hover:underline" href="{{ route('estadis.index') }}">Llistat d'Estadis</a></li>
+    <li><a class="text-white hover:underline" href="{{ route(name: 'estadis.index') }}">Llistat d'Estadis</a></li>
+
+    <li><a class="text-white hover:underline" href="{{ route(name: 'jugadoras.index') }}">Llistat de Jugadores</a></li>
+
   </ul>
 </nav>
