@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             EstadisSeeder::class,
             EquipsSeeder::class, // Els equips han d'existir abans que les jugadores
-            JugadorasSeeder::class, // Afegit ara
+            JugadorasSeeder::class, 
+            PartitsSeeder::class,
         ]);
 
         // Opcional: per veure que acaba

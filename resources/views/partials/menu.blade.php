@@ -9,5 +9,7 @@
 
     <li><a class="text-white hover:underline" href="{{ route(name: 'jugadoras.index') }}">Llistat de Jugadores</a></li>
 
+    <li><a class="text-white hover:underline" href="{{ route('partits.index') }}">Calendari de Partits</a></li>
+
   </ul>
 </nav>

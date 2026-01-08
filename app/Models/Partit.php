@@ -9,21 +9,29 @@ class Partit extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['local_id', 'visitant_id', 'estadi_id', 'data', 'jornada', 'gols_local', 'gols_visitant'];
+    protected $fillable = [
+        'local_id',
+        'visitant_id',
+        'estadi_id',
+        'data',
+        'jornada',
+        'gols_local',
+        'gols_visitant'
+    ];
 
-    // Relación: Equipo Local
+    // Relación con el equipo Local
     public function local()
     {
         return $this->belongsTo(Equip::class, 'local_id');
     }
 
-    // Relación: Equipo Visitante
+    // Relación con el equipo Visitante
     public function visitant()
     {
         return $this->belongsTo(Equip::class, 'visitant_id');
     }
 
-    // Relación: Estadi
+    // Relación con el Estadio
     public function estadi()
     {
         return $this->belongsTo(Estadi::class);
