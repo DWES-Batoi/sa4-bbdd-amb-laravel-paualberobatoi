@@ -4,11 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Equip;
 use App\Models\Estadi;
-use Illuminate\Http\Request; // <--- ESTO FALTABA
+use App\Services\EquipService;
+use App\Http\Requests\StoreEquipRequest;
+use App\Http\Requests\UpdateEquipRequest;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class EquipController extends Controller
 {
+    // Inyectamos el servicio en el constructor
+    public function __construct(private EquipService $servei)
+    {
+    }
+
     public function index()
     {
         $equips = Equip::with('estadi')->get();
@@ -21,15 +29,11 @@ class EquipController extends Controller
         return view('equips.create', compact('estadis'));
     }
 
-    public function store(Request $request)
+    public function store(StoreEquipRequest $request)
     {
-        $request->validate([
-            'nom' => 'required',
-            'estadi_id' => 'required|exists:estadis,id',
-            'titols' => 'integer|min:0'
-        ]);
+        // Pasamos los datos validados y el archivo del escudo al servicio
+        $this->servei->guardar($request->validated(), $request->file('escut'));
 
-        Equip::create($request->all());
         return redirect()->route('equips.index')->with('success', 'Equip creat correctament!');
     }
 
@@ -44,20 +48,19 @@ class EquipController extends Controller
         return view('equips.edit', compact('equip', 'estadis'));
     }
 
-    public function update(Request $request, Equip $equip)
+    public function update(UpdateEquipRequest $request, Equip $equip)
     {
-        $request->validate([
-            'nom' => 'required',
-            'estadi_id' => 'required|exists:estadis,id'
-        ]);
-        
-        $equip->update($request->all());
+        // Pasamos el ID, los datos validados y el archivo (si hay uno nuevo)
+        $this->servei->actualitzar($equip->id, $request->validated(), $request->file('escut'));
+
         return redirect()->route('equips.index')->with('success', 'Equip actualitzat!');
     }
 
     public function destroy(Equip $equip)
     {
-        $equip->delete();
+        // Usamos el servicio para borrar también el archivo físico del escudo si existe
+        $this->servei->eliminar($equip->id);
+
         return redirect()->route('equips.index')->with('success', 'Equip eliminat.');
     }
 }
