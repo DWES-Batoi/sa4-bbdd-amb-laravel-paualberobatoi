@@ -1,4 +1,4 @@
-@extends('layouts.equip') 
+@extends(view: 'layouts.equip') 
 @section('title', 'Afegir nou equip')
 
 @section('content')
