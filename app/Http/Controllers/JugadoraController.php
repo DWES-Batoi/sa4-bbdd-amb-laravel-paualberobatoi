@@ -2,90 +2,63 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\JugadoraService;
+use App\Models\Jugadora;
 use App\Models\Equip;
+use App\Services\JugadoraService;
 use App\Http\Requests\StoreJugadoraRequest;
-use App\Http\Requests\UpdateJugadoraRequest;
 use Illuminate\Http\Request;
 
 class JugadoraController extends Controller
 {
-    /**
-     * Inyectamos el servicio de Jugadoras en el controlador.
-     */
-    public function __construct(private JugadoraService $servei) {}
+    public function __construct(private JugadoraService $servei)
+    {
+    }
 
-    /**
-     * Muestra el listado de todas las jugadoras.
-     */
     public function index()
     {
         $jugadoras = $this->servei->llistar();
         return view('jugadoras.index', compact('jugadoras'));
     }
 
-    /**
-     * Muestra el formulario para crear una nueva jugadora.
-     */
     public function create()
     {
-        // Necesitamos los equipos para rellenar el <select> del formulario
         $equips = Equip::all();
         return view('jugadoras.create', compact('equips'));
     }
 
-    /**
-     * Guarda una nueva jugadora en la base de datos.
-     * Utiliza StoreJugadoraRequest para la validación.
-     */
     public function store(StoreJugadoraRequest $request)
     {
-        // $request->validated() devuelve solo los datos que han pasado la validación
         $this->servei->guardar($request->validated());
-
-        return redirect()->route('jugadoras.index')
-                         ->with('success', 'Jugadora creada correctamente.');
+        return redirect()->route('jugadoras.index')->with('success', 'Jugadora creada correctament.');
     }
 
-    /**
-     * Muestra el detalle de una jugadora específica.
-     */
     public function show($id)
     {
         $jugadora = $this->servei->trobar($id);
         return view('jugadoras.show', compact('jugadora'));
     }
 
-    /**
-     * Muestra el formulario para editar una jugadora existente.
-     */
-    public function edit($id)
+    public function edit(Jugadora $jugadora)
     {
-        $jugadora = $this->servei->trobar($id);
         $equips = Equip::all();
         return view('jugadoras.edit', compact('jugadora', 'equips'));
     }
 
-    /**
-     * Actualiza los datos de la jugadora en la base de datos.
-     * Utiliza UpdateJugadoraRequest para la validación.
-     */
-    public function update(UpdateJugadoraRequest $request, $id)
+    public function update(Request $request, Jugadora $jugadora)
     {
-        $this->servei->actualitzar($id, $request->validated());
+        $request->validate([
+            'nom' => 'required',
+            'dorsal' => 'required',
+            'equip_id' => 'required'
+        ]);
 
-        return redirect()->route('jugadoras.index')
-                         ->with('success', 'Jugadora actualizada correctamente.');
+        $jugadora->update($request->all());
+        return redirect()->route('jugadoras.index')->with('success', 'Jugadora actualitzada!');
     }
 
-    /**
-     * Elimina una jugadora de la base de datos.
-     */
     public function destroy($id)
     {
         $this->servei->eliminar($id);
-
-        return redirect()->route('jugadoras.index')
-                         ->with('success', 'Jugadora eliminada correctamente.');
+        return redirect()->route('jugadoras.index')->with('success', 'Jugadora eliminada correctament.');
     }
 }

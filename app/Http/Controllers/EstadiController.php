@@ -43,15 +43,13 @@ class EstadiController extends Controller
         return view('estadis.edit', compact('estadi'));
     }
 
-    // PUT/PATCH /estadis/{estadi}
     public function update(Request $request, Estadi $estadi)
     {
+        $request->validate(['nom' => 'required', 'capacitat' => 'required|integer|min:1']);
         $estadi->update($request->all());
-
-        return redirect()
-            ->route('estadis.index')
-            ->with('success', 'Estadi actualitzat correctament!');
+        return redirect()->route('estadis.index')->with('success', 'Estadi actualitzat!');
     }
+
 
     // DELETE /estadis/{estadi}
     public function destroy(Estadi $estadi)
