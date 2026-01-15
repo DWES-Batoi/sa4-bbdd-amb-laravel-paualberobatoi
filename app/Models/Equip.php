@@ -28,7 +28,8 @@ class Equip extends Model
      */
     public function manager()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'equip_id')
+            ->where('role', 'manager');
     }
 
     /**
@@ -55,5 +56,5 @@ class Equip extends Model
     {
         return $this->hasMany(Partit::class, 'visitant_id');
     }
-    
+
 }

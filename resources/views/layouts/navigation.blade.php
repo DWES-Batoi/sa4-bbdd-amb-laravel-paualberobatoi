@@ -9,9 +9,19 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('equips.index')" :active="request()->routeIs('equips.*')">
+                    <x-nav-link :href="route('equips.index')" :active="request()->routeIs('equips.index')">
                         {{ __('Equips') }}
                     </x-nav-link>
+
+                    {{-- --- LÒGICA DE MANAGER AFEGIDA --- --}}
+                    @auth
+                        @if(Auth::user()->role === 'manager' && Auth::user()->equip_id)
+                            <x-nav-link :href="route('equips.show', Auth::user()->equip_id)" :active="request()->routeIs('equips.show')">
+                                {{ __('El Meu Equip') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
+                    {{-- --------------------------------- --}}
 
                     <x-nav-link :href="route('estadis.index')" :active="request()->routeIs('estadis.*')">
                         {{ __('Estadis') }}
@@ -38,7 +48,11 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                                <div>{{ Auth::user()->name }}</div>
+                                {{-- Hem afegit el Rol al costat del nom per aclarir qui ha fet login --}}
+                                <div class="flex items-center gap-2">
+                                    <span>{{ Auth::user()->name }}</span>
+                                    <span class="text-[10px] uppercase bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded text-gray-500">({{ Auth::user()->role }})</span>
+                                </div>
                                 <div class="ms-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
