@@ -12,8 +12,8 @@ class PartitController extends Controller
     public function index()
     {
         $partits = Partit::with(['local', 'visitant', 'estadi'])
-                    ->orderBy('data', 'asc')
-                    ->get();
+            ->orderBy('data_partit', 'asc') // ✅ CORREGIDO: 'data' -> 'data_partit'
+            ->get();
 
         return view('partits.index', compact('partits'));
     }

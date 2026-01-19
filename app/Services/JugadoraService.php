@@ -2,35 +2,53 @@
 
 namespace App\Services;
 
+use App\Models\Jugadora;
 use App\Repositories\JugadoraRepository;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class JugadoraService
 {
-    public function __construct(private JugadoraRepository $repository) {}
-
-    public function llistar()
+    public function __construct(private JugadoraRepository $repo)
     {
-        return $this->repository->getAll();
     }
 
-    public function trobar($id)
+    public function getAll()
     {
-        return $this->repository->find($id);
+        return $this->repo->getAll();
     }
 
-    public function guardar(array $dades)
+    public function guardar(array $data, ?UploadedFile $foto = null): Jugadora
     {
-        // Aquí podrías añadir lógica para procesar la foto si llega un archivo
-        return $this->repository->create($dades);
+        if ($foto) {
+            $data['foto'] = $foto->store('jugadoras', 'public');
+        }
+
+        return $this->repo->create($data);
     }
 
-    public function actualitzar($id, array $dades)
+    public function actualitzar(int $id, array $data, ?UploadedFile $foto = null): Jugadora
     {
-        return $this->repository->update($id, $dades);
+        $jugadora = $this->repo->find($id);
+
+        if ($foto) {
+            if ($jugadora->foto) {
+                Storage::disk('public')->delete($jugadora->foto);
+            }
+            $data['foto'] = $foto->store('jugadoras', 'public');
+        }
+
+        return $this->repo->update($id, $data);
     }
 
-    public function eliminar($id)
+    public function eliminar(int $id): void
     {
-        return $this->repository->delete($id);
+        $jugadora = $this->repo->find($id);
+
+        if ($jugadora->foto) {
+            Storage::disk('public')->delete($jugadora->foto);
+        }
+
+        $this->repo->delete($id);
     }
 }

@@ -1,58 +1,53 @@
 @extends('layouts.app')
+
 @section('title', __("Detall del Partit"))
 
 @section('content')
-<div class="max-w-4xl mx-auto mt-10">
-    <div class="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200">
-        {{-- Cabecera con la Fecha y Jornada --}}
-        <div class="bg-gray-800 text-white text-center py-4">
-            <p class="text-sm uppercase tracking-widest font-semibold">{{ __('Jornada') }} {{ $partit->jornada }}</p>
-            <p class="text-lg">{{ \Carbon\Carbon::parse($partit->data)->format('d/m/Y - H:i') }}h</p>
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded shadow-lg text-center">
+        
+        <div class="mb-6">
+            <span class="bg-gray-200 text-gray-700 py-1 px-3 rounded-full text-sm">
+                {{ \Carbon\Carbon::parse($partit->data_partit)->format('d \d\e F, Y - H:i') }}
+            </span>
+            <h2 class="text-lg text-gray-500 mt-2">{{ $partit->estadi->nom ?? 'Estadi desconegut' }}</h2>
         </div>
 
-        {{-- Cuerpo del marcador --}}
-        <div class="p-10 flex flex-col md:flex-row items-center justify-around gap-8">
-            {{-- Equipo Local --}}
-            <div class="text-center w-full md:w-1/3">
-                <h2 class="text-3xl font-extrabold text-blue-900 mb-2">{{ $partit->local->nom }}</h2>
-                <span class="text-gray-500 font-medium italic">{{ __('Local') }}</span>
+        <div class="flex justify-center items-center gap-8 mb-8">
+            <div class="flex flex-col items-center w-1/3">
+                @if($partit->local->escut)
+                    <img src="{{ asset('storage/' . $partit->local->escut) }}" class="h-24 w-24 object-contain mb-2">
+                @else
+                    <div class="h-24 w-24 bg-gray-200 rounded-full flex items-center justify-center text-2xl font-bold text-gray-500">L</div>
+                @endif
+                <h3 class="text-xl font-bold">{{ $partit->local->nom }}</h3>
             </div>
 
-            {{-- Marcador --}}
-            <div class="flex items-center justify-center bg-gray-100 rounded-lg px-8 py-4 border-2 border-blue-600 shadow-inner">
+            <div class="text-5xl font-bold text-blue-800">
                 @if($partit->gols_local !== null)
-                    <span class="text-6xl font-black text-blue-800">{{ $partit->gols_local }}</span>
-                    <span class="text-4xl font-light text-gray-400 mx-4">-</span>
-                    <span class="text-6xl font-black text-blue-800">{{ $partit->gols_visitant }}</span>
+                    {{ $partit->gols_local }} - {{ $partit->gols_visitant }}
                 @else
-                    <span class="text-4xl font-bold text-gray-400 italic px-4">VS</span>
+                    <span class="text-4xl text-gray-400">VS</span>
                 @endif
             </div>
 
-            {{-- Equipo Visitante --}}
-            <div class="text-center w-full md:w-1/3">
-                <h2 class="text-3xl font-extrabold text-blue-900 mb-2">{{ $partit->visitant->nom }}</h2>
-                <span class="text-gray-500 font-medium italic">{{ __('Visitant') }}</span>
+            <div class="flex flex-col items-center w-1/3">
+                @if($partit->visitant->escut)
+                    <img src="{{ asset('storage/' . $partit->visitant->escut) }}" class="h-24 w-24 object-contain mb-2">
+                @else
+                    <div class="h-24 w-24 bg-gray-200 rounded-full flex items-center justify-center text-2xl font-bold text-gray-500">V</div>
+                @endif
+                <h3 class="text-xl font-bold">{{ $partit->visitant->nom }}</h3>
             </div>
         </div>
 
-        {{-- Detalles del Estadio --}}
-        <div class="bg-gray-50 border-t border-gray-200 p-6 text-center">
-            <div class="flex items-center justify-center gap-2 text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-                <span class="text-xl font-semibold">{{ __('Estadi') }}: {{ $partit->estadi->nom }}</span>
+        @auth
+            <div class="mt-8 flex justify-center gap-4 border-t pt-6">
+                @if(auth()->user()->role === 'admin')
+                    <a href="{{ route('partits.edit', $partit) }}" class="btn btn--primary">{{ __('Editar Resultat') }}</a>
+                @endif
+                
+                <a href="{{ route('partits.index') }}" class="btn btn--ghost">{{ __('Tornar al llistat') }}</a>
             </div>
-            <p class="text-gray-500 text-sm mt-1">{{ __('Capacitat') }}: {{ number_format($partit->estadi->capacitat) }} {{ __('espectadors') }}</p>
-        </div>
+        @endauth
     </div>
-
-    {{-- Botón Volver --}}
-    <div class="mt-8 text-center">
-        <a href="{{ route('partits.index') }}" class="inline-flex items-center px-6 py-3 bg-blue-700 text-white font-bold rounded-full hover:bg-blue-800 transition shadow-lg">
-            &larr; {{ __('Tornar al Calendari') }}
-        </a>
-    </div>
-</div>
 @endsection

@@ -3,9 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Repositories\BaseRepository;
-use App\Repositories\EquipRepository;
-use App\Repositories\JugadoraRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,11 +11,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(BaseRepository::class, EquipRepository::class);
-        
-        $this->app->bind(JugadoraRepository::class, function ($app) {
-            return new JugadoraRepository();
-        });
+        // ELIMINA cualquier línea aquí que diga algo como:
+        // $this->app->bind(JugadoraRepository::class, function ...);
     }
 
     /**

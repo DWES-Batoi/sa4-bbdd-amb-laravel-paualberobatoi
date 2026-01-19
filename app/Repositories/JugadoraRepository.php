@@ -6,6 +6,12 @@ use App\Models\Jugadora;
 
 class JugadoraRepository implements BaseRepository
 {
+
+    public function __construct(Jugadora $model)
+    {
+        $this->model = $model;
+    }
+
     // Obtenemos todas las jugadoras con su equipo cargado (Eager Loading)
     public function getAll()
     {

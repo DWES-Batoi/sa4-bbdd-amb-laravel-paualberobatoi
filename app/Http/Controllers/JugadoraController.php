@@ -16,7 +16,7 @@ class JugadoraController extends Controller
 
     public function index()
     {
-        $jugadoras = $this->servei->llistar();
+        $jugadoras = $this->servei->getAll();
         return view('jugadoras.index', compact('jugadoras'));
     }
 
@@ -28,13 +28,17 @@ class JugadoraController extends Controller
 
     public function store(StoreJugadoraRequest $request)
     {
-        $this->servei->guardar($request->validated());
-        return redirect()->route('jugadoras.index')->with('success', 'Jugadora creada correctament.');
+        $foto = $request->file('foto');
+        
+        $this->servei->guardar($request->validated(), $foto);
+        
+        return redirect()->route('jugadoras.index')
+            ->with('success', 'Jugadora creada correctament.');
     }
 
     public function show($id)
     {
-        $jugadora = $this->servei->trobar($id);
+        $jugadora = Jugadora::findOrFail($id); 
         return view('jugadoras.show', compact('jugadora'));
     }
 
@@ -46,19 +50,26 @@ class JugadoraController extends Controller
 
     public function update(Request $request, Jugadora $jugadora)
     {
-        $request->validate([
-            'nom' => 'required',
-            'dorsal' => 'required',
-            'equip_id' => 'required'
+        $data = $request->validate([
+            'nom' => 'required|min:3',
+            'dorsal' => 'required|integer',
+            'equip_id' => 'required|exists:equips,id',
+            'posicio' => 'required|string',      
+            'data_naixement' => 'required|date',  
+            'foto' => 'nullable|image|max:2048'   
         ]);
 
-        $jugadora->update($request->all());
-        return redirect()->route('jugadoras.index')->with('success', 'Jugadora actualitzada!');
+        $foto = $request->file('foto');
+        $this->servei->actualitzar($jugadora->id, $data, $foto);
+
+        return redirect()->route('jugadoras.index')
+            ->with('success', 'Jugadora actualitzada!');
     }
 
     public function destroy($id)
     {
         $this->servei->eliminar($id);
-        return redirect()->route('jugadoras.index')->with('success', 'Jugadora eliminada correctament.');
+        return redirect()->route('jugadoras.index')
+            ->with('success', 'Jugadora eliminada correctament.');
     }
 }

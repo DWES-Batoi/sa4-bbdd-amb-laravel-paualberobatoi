@@ -2,36 +2,34 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Partit extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'local_id',
-        'visitant_id',
-        'estadi_id',
-        'data',
-        'jornada',
-        'gols_local',
+        'equip_local_id', 
+        'equip_visitant_id', 
+        'estadi_id', 
+        'data_partit', 
+        'gols_local', 
         'gols_visitant'
     ];
 
-    // Relación con el equipo Local
+    // Relación con el equipo local
     public function local()
     {
-        return $this->belongsTo(Equip::class, 'local_id');
+        return $this->belongsTo(Equip::class, 'equip_local_id');
     }
 
-    // Relación con el equipo Visitante
+    // Relación con el equipo visitante
     public function visitant()
     {
-        return $this->belongsTo(Equip::class, 'visitant_id');
+        return $this->belongsTo(Equip::class, 'equip_visitant_id');
     }
 
-    // Relación con el Estadio
     public function estadi()
     {
         return $this->belongsTo(Estadi::class);

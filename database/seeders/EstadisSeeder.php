@@ -9,11 +9,21 @@ class EstadisSeeder extends Seeder
 {
     public function run(): void
     {
-        Estadi::create(['nom' => 'Camp Nou',            'capacitat' => 99000]);
-        Estadi::create(['nom' => 'Wanda Metropolitano', 'capacitat' => 68000]);
-        Estadi::create(['nom' => 'Santiago Bernabéu',   'capacitat' => 81000]);
+        $estadis = [
+            ['nom' => 'Estadi Johan Cruyff', 'capacitat' => 6000],
+            ['nom' => 'Alfredo Di Stéfano', 'capacitat' => 6000],
+            ['nom' => 'Centre Esportiu Wanda', 'capacitat' => 2500],
+            ['nom' => 'Ciutat de València', 'capacitat' => 26354],
+            ['nom' => 'Estadi Jesús Navas', 'capacitat' => 7500],
+            ['nom' => 'Instalaciones de Lezama', 'capacitat' => 3200],
+            ['nom' => 'Zubieta', 'capacitat' => 2500],
+            ['nom' => 'Antonio Puchades', 'capacitat' => 2250],
+            ['nom' => 'Campo Municipal Las Gaunas', 'capacitat' => 16000],
+            ['nom' => 'Estadio Fernando Torres', 'capacitat' => 5400],
+        ];
 
-        // Opcional: per comprovar que s'han creat
-        dump('EstadisSeeder - després de crear:', Estadi::count());
+        foreach ($estadis as $estadi) {
+            Estadi::create($estadi);
+        }
     }
 }

@@ -2,42 +2,67 @@
 
 namespace Database\Seeders;
 
-use App\Models\Jugadora;
 use App\Models\Equip;
+use App\Models\Jugadora;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class JugadorasSeeder extends Seeder
 {
     public function run(): void
     {
-        $equip1 = Equip::first();
-        
-        if ($equip1) {
-            Jugadora::create([
-                'nom' => 'Alexia Putellas',
-                'equip_id' => $equip1->id,
-                'data_naixement' => '1994-02-04',
-                'dorsal' => 11,
-                'foto' => 'alexia.jpg'
-            ]);
+        $faker = Faker::create('es_ES'); // Nombres en español
+        $equips = Equip::all();
 
-            Jugadora::create([
-                'nom' => 'Aitana Bonmatí',
-                'equip_id' => $equip1->id,
-                'data_naixement' => '1998-01-18',
-                'dorsal' => 14,
-                'foto' => 'aitana.jpg'
-            ]);
+        // Jugadoras reales clave para dar realismo
+        $estrellas = [
+            'FC Barcelona' => [
+                ['nom' => 'Alexia Putellas', 'posicio' => 'Migcampista', 'dorsal' => 11],
+                ['nom' => 'Aitana Bonmatí', 'posicio' => 'Migcampista', 'dorsal' => 14],
+                ['nom' => 'Salma Paralluelo', 'posicio' => 'Davantera', 'dorsal' => 7],
+                ['nom' => 'Mapi León', 'posicio' => 'Defensa', 'dorsal' => 4],
+                ['nom' => 'Caroline Graham Hansen', 'posicio' => 'Davantera', 'dorsal' => 10],
+            ],
+            'Real Madrid' => [
+                ['nom' => 'Misa Rodríguez', 'posicio' => 'Portera', 'dorsal' => 1],
+                ['nom' => 'Olga Carmona', 'posicio' => 'Defensa', 'dorsal' => 7],
+                ['nom' => 'Athenea del Castillo', 'posicio' => 'Davantera', 'dorsal' => 22],
+                ['nom' => 'Tere Abelleira', 'posicio' => 'Migcampista', 'dorsal' => 3],
+            ],
+            'Atlético de Madrid' => [
+                ['nom' => 'Lola Gallardo', 'posicio' => 'Portera', 'dorsal' => 13],
+                ['nom' => 'Ludmila da Silva', 'posicio' => 'Davantera', 'dorsal' => 8],
+            ]
+        ];
 
-            Jugadora::create([
-                'nom' => 'Irene Paredes',
-                'equip_id' => $equip1->id,
-                'data_naixement' => '1991-07-04',
-                'dorsal' => 4,
-                'foto' => 'irene.jpg'
-            ]);
+        foreach ($equips as $equip) {
+            // 1. Insertar jugadoras reales si existen para este equipo
+            if (isset($estrellas[$equip->nom])) {
+                foreach ($estrellas[$equip->nom] as $jugadoraData) {
+                    Jugadora::create(array_merge($jugadoraData, [
+                        'equip_id' => $equip->id,
+                        'data_naixement' => $faker->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
+                        'foto' => null
+                    ]));
+                }
+            }
+
+            // 2. Rellenar hasta tener 22 jugadoras con nombres realistas
+            $jugadorasActuales = Jugadora::where('equip_id', $equip->id)->count();
+            $faltan = 22 - $jugadorasActuales;
+
+            for ($i = 0; $i < $faltan; $i++) {
+                Jugadora::create([
+                    'nom' => $faker->firstNameFemale . ' ' . $faker->lastName,
+                    'dorsal' => $faker->unique()->numberBetween(1, 99),
+                    'posicio' => $faker->randomElement(['Portera', 'Defensa', 'Migcampista', 'Davantera']),
+                    'data_naixement' => $faker->dateTimeBetween('-35 years', '-16 years')->format('Y-m-d'),
+                    'equip_id' => $equip->id,
+                    'foto' => null
+                ]);
+            }
+            // Resetear unique para el siguiente equipo
+            $faker->unique(true); 
         }
-
-        dump('JugadorasSeeder - després de crear:', Jugadora::count());
     }
 }

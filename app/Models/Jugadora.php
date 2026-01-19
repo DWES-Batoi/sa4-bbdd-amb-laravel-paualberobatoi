@@ -9,9 +9,15 @@ class Jugadora extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['equip_id', 'nom', 'data_naixement', 'dorsal', 'foto'];
+    protected $fillable = [
+        'nom',
+        'dorsal',
+        'posicio',       
+        'data_naixement',
+        'equip_id',
+        'foto'
+    ];
 
-    // Relación: Una jugadora pertenece a un Equipo (N:1)
     public function equip()
     {
         return $this->belongsTo(Equip::class);
