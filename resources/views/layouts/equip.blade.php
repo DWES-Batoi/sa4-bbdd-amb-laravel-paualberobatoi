@@ -29,6 +29,6 @@
 
     {{-- Footer opcional dentro del diseño --}}
     <footer class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-8 text-center text-gray-500 text-sm">
-        <p>&copy; {{ date('Y') }} Guia de Futbol Femení</p>
+        <p>&copy; {{ date('Y') }} {{ __('Guia de Futbol Femení') }}</p>
     </footer>
 </x-app-layout>

@@ -1,13 +1,13 @@
 @extends('layouts.equip')
 
-@section('title', 'Plantilla de Jugadores')
+@section('title', __('Llistat de Jugadores'))
 
 @section('content')
 <div class="container">
   {{-- Capçalera amb Títol i Botó d'Afegir --}}
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-      <h1 class="title">Llistat de Jugadores</h1>
-      <a class="btn btn--primary" href="{{ route('jugadoras.create') }}">Nova Jugadora</a>
+      <h1 class="title">{{ __('Llistat de Jugadores') }}</h1>
+      <a class="btn btn--primary" href="{{ route('jugadoras.create') }}">{{ __('Nova Jugadora') }}</a>
   </div>
 
   <div class="grid-cards">
@@ -20,21 +20,21 @@
         </header>
 
         <div class="card__body">
-          <p><strong>Equip:</strong> {{ $jugadora->equip->nom ?? 'Sense equip' }}</p>
+          <p><strong>{{ __('Equip') }}:</strong> {{ $jugadora->equip->nom ?? __('Sense equip') }}</p>
           {{-- Si tens la data de naixement i la vols mostrar: --}}
           {{-- <p><strong>Edat:</strong> {{ \Carbon\Carbon::parse($jugadora->data_naixement)->age }} anys</p> --}}
         </div>
 
         <footer class="card__footer">
           {{-- Botons d'Acció --}}
-          <a class="btn btn--ghost" href="{{ route('jugadoras.show', $jugadora) }}">Veure</a>
-          <a class="btn btn--primary" href="{{ route('jugadoras.edit', $jugadora) }}">Editar</a>
+          <a class="btn btn--ghost" href="{{ route('jugadoras.show', $jugadora) }}">{{ __('Veure') }}</a>
+          <a class="btn btn--primary" href="{{ route('jugadoras.edit', $jugadora) }}">{{ __('Editar') }}</a>
 
           {{-- Formulari per eliminar --}}
-          <form method="POST" action="{{ route('jugadoras.destroy', $jugadora) }}" class="inline" onsubmit="return confirm('Segur que vols esborrar aquesta jugadora?');">
+          <form method="POST" action="{{ route('jugadoras.destroy', $jugadora) }}" class="inline" onsubmit="return confirm('{{ __('Segur que vols esborrar aquesta jugadora?') }}');">
             @csrf
             @method('DELETE')
-            <button class="btn btn--danger" type="submit">Eliminar</button>
+            <button class="btn btn--danger" type="submit">{{ __('Eliminar') }}</button>
           </form>
         </footer>
       </article>

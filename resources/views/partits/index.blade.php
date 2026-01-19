@@ -1,13 +1,13 @@
 @extends('layouts.equip')
 
-@section('title', 'Calendari de Partits')
+@section('title', __('Calendari de Partits'))
 
 @section('content')
 <div class="container">
   {{-- Capçalera amb Títol i Botó d'Afegir --}}
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-      <h1 class="title">Calendari de Partits</h1>
-      <a class="btn btn--primary" href="{{ route('partits.create') }}">Nou Partit</a>
+      <h1 class="title">{{ __('Calendari de Partits') }}</h1>
+      <a class="btn btn--primary" href="{{ route('partits.create') }}">{{ __('Nou Partit') }}</a>
   </div>
 
   <div class="grid-cards">
@@ -34,20 +34,20 @@
             @endif
           </div>
 
-          <p><strong>Hora:</strong> {{ \Carbon\Carbon::parse($partit->data)->format('H:i') }}</p>
-          <p><strong>Estadi:</strong> {{ $partit->estadi->nom ?? 'Desconegut' }}</p>
+          <p><strong>{{ __('Hora') }}:</strong> {{ \Carbon\Carbon::parse($partit->data)->format('H:i') }}</p>
+          <p><strong>{{ __('Estadi') }}:</strong> {{ $partit->estadi->nom ?? __('Desconegut') }}</p>
         </div>
 
         <footer class="card__footer">
           {{-- Botons d'Acció --}}
-          <a class="btn btn--ghost" href="{{ route('partits.show', $partit) }}">Veure</a>
-          <a class="btn btn--primary" href="{{ route('partits.edit', $partit) }}">Editar</a>
+          <a class="btn btn--ghost" href="{{ route('partits.show', $partit) }}">{{ __('Veure') }}</a>
+          <a class="btn btn--primary" href="{{ route('partits.edit', $partit) }}">{{ __('Editar') }}</a>
 
           {{-- Formulari per eliminar --}}
-          <form method="POST" action="{{ route('partits.destroy', $partit) }}" class="inline" onsubmit="return confirm('Segur que vols esborrar aquest partit?');">
+          <form method="POST" action="{{ route('partits.destroy', $partit) }}" class="inline" onsubmit="return confirm('{{ __('Segur que vols esborrar aquest partit?') }}');">
             @csrf
             @method('DELETE')
-            <button class="btn btn--danger" type="submit">Eliminar</button>
+            <button class="btn btn--danger" type="submit">{{ __('Eliminar') }}</button>
           </form>
         </footer>
       </article>

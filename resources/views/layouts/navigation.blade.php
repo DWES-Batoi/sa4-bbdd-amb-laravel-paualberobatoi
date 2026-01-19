@@ -9,19 +9,18 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('equips.index')" :active="request()->routeIs('equips.index')">
+                    <x-nav-link :href="route('equips.index')" :active="request()->routeIs('equips.*')">
                         {{ __('Equips') }}
                     </x-nav-link>
 
-                    {{-- --- LÒGICA DE MANAGER AFEGIDA --- --}}
                     @auth
                         @if(Auth::user()->role === 'manager' && Auth::user()->equip_id)
-                            <x-nav-link :href="route('equips.show', Auth::user()->equip_id)" :active="request()->routeIs('equips.show')">
+                            <x-nav-link :href="route('equips.show', Auth::user()->equip_id)"
+                                :active="request()->routeIs('equips.show')">
                                 {{ __('El Meu Equip') }}
                             </x-nav-link>
                         @endif
                     @endauth
-                    {{-- --------------------------------- --}}
 
                     <x-nav-link :href="route('estadis.index')" :active="request()->routeIs('estadis.*')">
                         {{ __('Estadis') }}
@@ -43,19 +42,34 @@
                 </div>
             </div>
 
-            @auth
-                <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-4">
+
+                {{-- 🌍 Selector de Idioma (Sempre visible) --}}
+                <div class="flex items-center gap-2 mr-4 border-r pr-4 border-gray-200 dark:border-gray-700">
+                    <a href="{{ route('setLocale', 'ca') }}"
+                        class="text-xs {{ app()->getLocale() === 'ca' ? 'font-bold text-blue-600 underline' : 'text-gray-500' }}">CA</a>
+                    <a href="{{ route('setLocale', 'es') }}"
+                        class="text-xs {{ app()->getLocale() === 'es' ? 'font-bold text-blue-600 underline' : 'text-gray-500' }}">ES</a>
+                    <a href="{{ route('setLocale', 'en') }}"
+                        class="text-xs {{ app()->getLocale() === 'en' ? 'font-bold text-blue-600 underline' : 'text-gray-500' }}">EN</a>
+                </div>
+
+                @auth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
-                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                                {{-- Hem afegit el Rol al costat del nom per aclarir qui ha fet login --}}
+                            <button
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                                 <div class="flex items-center gap-2">
                                     <span>{{ Auth::user()->name }}</span>
-                                    <span class="text-[10px] uppercase bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded text-gray-500">({{ Auth::user()->role }})</span>
+                                    <span
+                                        class="text-[10px] uppercase bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded text-gray-500">({{ Auth::user()->role }})</span>
                                 </div>
                                 <div class="ms-1">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
                                     </svg>
                                 </div>
                             </button>
@@ -64,21 +78,40 @@
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+
+                            {{-- 🌍 Idioma dins del dropdown --}}
+                            <div class="border-t border-gray-100 dark:border-gray-600 my-1"></div>
+
+                            <x-dropdown-link :href="route('setLocale', 'ca')">
+                                {{ __('Català') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('setLocale', 'es')">
+                                {{ __('Castellano') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('setLocale', 'en')">
+                                {{ __('English') }}
+                            </x-dropdown-link>
+
+                            <div class="border-t border-gray-100 dark:border-gray-600 my-1"></div>
+
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
                     </x-dropdown>
-                </div>
-            @else
-                <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-4">
-                    <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-300 hover:underline">Log in</a>
-                    <a href="{{ route('register') }}" class="text-sm text-gray-700 dark:text-gray-300 hover:underline">Register</a>
-                </div>
-            @endauth
+                @else
+                    <div class="space-x-4">
+                        <a href="{{ route('login') }}"
+                            class="text-sm text-gray-700 dark:text-gray-300 hover:underline">{{ __('Log in') }}</a>
+                        <a href="{{ route('register') }}"
+                            class="text-sm text-gray-700 dark:text-gray-300 hover:underline">{{ __('Register') }}</a>
+                    </div>
+                @endauth
+            </div>
         </div>
     </div>
 </nav>

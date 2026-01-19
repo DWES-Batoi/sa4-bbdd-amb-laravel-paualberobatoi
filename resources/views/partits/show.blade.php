@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title', "Detall del Partit")
+@section('title', __("Detall del Partit"))
 
 @section('content')
 <div class="max-w-4xl mx-auto mt-10">
     <div class="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200">
         {{-- Cabecera con la Fecha y Jornada --}}
         <div class="bg-gray-800 text-white text-center py-4">
-            <p class="text-sm uppercase tracking-widest font-semibold">Jornada {{ $partit->jornada }}</p>
+            <p class="text-sm uppercase tracking-widest font-semibold">{{ __('Jornada') }} {{ $partit->jornada }}</p>
             <p class="text-lg">{{ \Carbon\Carbon::parse($partit->data)->format('d/m/Y - H:i') }}h</p>
         </div>
 
@@ -15,7 +15,7 @@
             {{-- Equipo Local --}}
             <div class="text-center w-full md:w-1/3">
                 <h2 class="text-3xl font-extrabold text-blue-900 mb-2">{{ $partit->local->nom }}</h2>
-                <span class="text-gray-500 font-medium italic">Local</span>
+                <span class="text-gray-500 font-medium italic">{{ __('Local') }}</span>
             </div>
 
             {{-- Marcador --}}
@@ -32,7 +32,7 @@
             {{-- Equipo Visitante --}}
             <div class="text-center w-full md:w-1/3">
                 <h2 class="text-3xl font-extrabold text-blue-900 mb-2">{{ $partit->visitant->nom }}</h2>
-                <span class="text-gray-500 font-medium italic">Visitant</span>
+                <span class="text-gray-500 font-medium italic">{{ __('Visitant') }}</span>
             </div>
         </div>
 
@@ -42,16 +42,16 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
-                <span class="text-xl font-semibold">Estadi: {{ $partit->estadi->nom }}</span>
+                <span class="text-xl font-semibold">{{ __('Estadi') }}: {{ $partit->estadi->nom }}</span>
             </div>
-            <p class="text-gray-500 text-sm mt-1">Capacitat: {{ number_format($partit->estadi->capacitat) }} espectadors</p>
+            <p class="text-gray-500 text-sm mt-1">{{ __('Capacitat') }}: {{ number_format($partit->estadi->capacitat) }} {{ __('espectadors') }}</p>
         </div>
     </div>
 
     {{-- Botón Volver --}}
     <div class="mt-8 text-center">
         <a href="{{ route('partits.index') }}" class="inline-flex items-center px-6 py-3 bg-blue-700 text-white font-bold rounded-full hover:bg-blue-800 transition shadow-lg">
-            &larr; Tornar al Calendari
+            &larr; {{ __('Tornar al Calendari') }}
         </a>
     </div>
 </div>

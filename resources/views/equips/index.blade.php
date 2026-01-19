@@ -1,13 +1,13 @@
 @extends('layouts.equip')
 
-@section('title', 'Llistat d\'Equips')
+@section('title', __('Llistat d\'Equips'))
 
 @section('content')
 <div class="container">
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-      <h1 class="title">Llistat d'Equips</h1>
+      <h1 class="title">{{ __('Llistat d\'Equips') }}</h1>
       @if(auth()->user() && auth()->user()->role === 'admin')
-        <a class="btn btn--primary" href="{{ route('equips.create') }}">Afegir Equip</a>
+        <a class="btn btn--primary" href="{{ route('equips.create') }}">{{ __('Crear Equip') }}</a>
       @endif
   </div>
 
@@ -21,31 +21,29 @@
             @endif
             <h2 class="card__title">{{ $equip->nom }}</h2>
           </div>
-          <span class="card__badge">ID: {{ $equip->id }}</span>
+          <span class="card__badge">{{ __('ID') }}: {{ $equip->id }}</span>
         </header>
 
         <div class="card__body">
-          <p><strong>Estadi:</strong> {{ $equip->estadi->nom ?? 'Sense estadi' }}</p>
-          {{-- Afegim el manager gràcies a la relació que ja tens configurada --}}
-          <p><strong>Manager:</strong> {{ $equip->manager->name ?? 'Sense assignar' }}</p>
-          <p><strong>Títols:</strong> {{ $equip->titols }}</p>
+          <p><strong>{{ __('Estadi') }}:</strong> {{ $equip->estadi->nom ?? __('Sense estadi') }}</p>
+          <p><strong>{{ __('Manager') }}:</strong> {{ $equip->manager->name ?? __('Sense assignar') }}</p>
+          <p><strong>{{ __('Titols') }}:</strong> {{ $equip->titols }}</p>
         </div>
 
         <footer class="card__footer">
-          <a class="btn btn--ghost" href="{{ route('equips.show', $equip) }}">Veure</a>
+          <a class="btn btn--ghost" href="{{ route('equips.show', $equip) }}">{{ __('Veure') }}</a>
           
           @auth
-            {{-- Editar: Només si és Admin O si és el Manager d'aquest equip específic --}}
             @if(auth()->user()->role === 'admin' || (auth()->user()->role === 'manager' && auth()->user()->equip_id === $equip->id))
-              <a class="btn btn--primary" href="{{ route('equips.edit', $equip) }}">Editar</a>
+              <a class="btn btn--primary" href="{{ route('equips.edit', $equip) }}">{{ __('Editar') }}</a>
             @endif
 
-            {{-- Eliminar: Restringit només a l'Administrador --}}
             @if(auth()->user()->role === 'admin')
-              <form method="POST" action="{{ route('equips.destroy', $equip) }}" class="inline" onsubmit="return confirm('Segur que vols esborrar aquest equip?');">
+              <form method="POST" action="{{ route('equips.destroy', $equip) }}" class="inline" 
+                    onsubmit="return confirm('{{ __('Segur que vols eliminar aquest equip?') }}');">
                 @csrf
                 @method('DELETE')
-                <button class="btn btn--danger" type="submit">Eliminar</button>
+                <button class="btn btn--danger" type="submit">{{ __('Eliminar') }}</button>
               </form>
             @endif
           @endauth
