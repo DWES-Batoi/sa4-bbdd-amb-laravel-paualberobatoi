@@ -41,7 +41,7 @@ class JugadorasSeeder extends Seeder
                 foreach ($estrellas[$equip->nom] as $jugadoraData) {
                     Jugadora::create(array_merge($jugadoraData, [
                         'equip_id' => $equip->id,
-                        'data_naixement' => $faker->dateTimeBetween('-30 years', '-18 years')->format('Y-m-d'),
+                        'edat' => $faker->numberBetween(17, 38),
                         'foto' => null
                     ]));
                 }
@@ -56,7 +56,7 @@ class JugadorasSeeder extends Seeder
                     'nom' => $faker->firstNameFemale . ' ' . $faker->lastName,
                     'dorsal' => $faker->unique()->numberBetween(1, 99),
                     'posicio' => $faker->randomElement(['Portera', 'Defensa', 'Migcampista', 'Davantera']),
-                    'data_naixement' => $faker->dateTimeBetween('-35 years', '-16 years')->format('Y-m-d'),
+                    'edat' => $faker->numberBetween(16, 35),
                     'equip_id' => $equip->id,
                     'foto' => null
                 ]);

@@ -13,7 +13,7 @@ class Jugadora extends Model
         'nom',
         'dorsal',
         'posicio',       
-        'data_naixement',
+        'edat',
         'equip_id',
         'foto'
     ];

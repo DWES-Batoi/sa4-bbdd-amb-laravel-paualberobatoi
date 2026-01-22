@@ -9,18 +9,15 @@
     "Català": "Català",
     "Castellano": "Castellà",
     "English": "Anglès",
-    
     "Llistat d'Equips": "Llistat d'Equips",
     "Llistat d'Estadis": "Llistat d'Estadis",
     "Llistat de Jugadores": "Llistat de Jugadores",
     "Llistat de Partits": "Llistat de Partits",
     "Calendari de Partits": "Calendari de Partits",
-    
     "Sense estadi": "Sense estadi",
     "Sense assignar": "Sense assignar",
     "Sense equip": "Sense equip",
     "Desconegut": "Desconegut",
-    
     "Manager": "Manager",
     "ID": "ID",
     "Veure": "Veure",
@@ -33,11 +30,9 @@
     "Cancelar": "Cancel·lar",
     "Tornar al llistat": "Tornar al llistat",
     "Tornar al Calendari": "Tornar al Calendari",
-    
     "Segur que vols esborrar aquesta jugadora?": "Segur que vols esborrar aquesta jugadora?",
     "Segur que vols esborrar aquest partit?": "Segur que vols esborrar aquest partit?",
     "Estàs segur de voler esborrar aquest estadi?": "Estàs segur de voler esborrar aquest estadi?",
-    
     "Capacitat": "Capacitat",
     "Crear Estadi": "Crear Estadi",
     "Editar Estadi": "Editar Estadi",
@@ -46,7 +41,6 @@
     "Detall de l'Estadi": "Detall de l'Estadi",
     "Nom de l'Estadi": "Nom de l'Estadi",
     "espectadors": "espectadors",
-    
     "Posició": "Posició",
     "Dorsal": "Dorsal",
     "Equip": "Equip",
@@ -57,8 +51,9 @@
     "Editar Jugadora": "Editar Jugadora",
     "Detall de la Jugadora": "Detall de la Jugadora",
     "Data de Naixement": "Data de Naixement",
+    "Edat": "Edat",
+    "anys": "anys",
     "Guardar Canvis": "Guardar Canvis",
-    
     "Local": "Local",
     "Visitant": "Visitant",
     "Equip Local": "Equip Local",
@@ -78,12 +73,9 @@
     "Actualitzar Partit": "Actualitzar Partit",
     "Guardar Partit": "Guardar Partit",
     "Detall del Partit": "Detall del Partit",
-    
     "Gols": "Gols",
     "Escut (Imatge)": "Escut (Imatge)",
     "Escut actual": "Escut actual",
-
-    
     "Equips": "Equips",
     "Estadis": "Estadis",
     "Jugadores": "Jugadores",
@@ -94,7 +86,5 @@
     "Log Out": "Sortir",
     "Log in": "Entrar",
     "Register": "Registrar-se",
-
     "Guia de Futbol Femení": "Guia de Futbol Femení"
-
 }

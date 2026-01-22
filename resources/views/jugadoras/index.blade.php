@@ -33,8 +33,7 @@
 
                 <div class="card__body">
                     <p><strong>{{ __('Equip') }}:</strong> {{ $jugadora->equip->nom ?? __('Sense equip') }}</p>
-                    <p><strong>{{ __('Naixement') }}:</strong> {{ \Carbon\Carbon::parse($jugadora->data_naixement)->format('d/m/Y') }}</p>
-                    <p><strong>{{ __('Edat') }}:</strong> {{ \Carbon\Carbon::parse($jugadora->data_naixement)->age }} {{ __('anys') }}</p>
+                    <p><strong>{{ __('Edat') }}:</strong> {{ $jugadora->edat }} {{ __('anys') }}</p>
                 </div>
 
                 <footer class="card__footer">

@@ -9,18 +9,15 @@
     "Català": "Catalan",
     "Castellano": "Spanish",
     "English": "English",
-
     "Llistat d'Equips": "Teams List",
     "Llistat d'Estadis": "Stadiums List",
     "Llistat de Jugadores": "Players List",
     "Llistat de Partits": "Matches List",
     "Calendari de Partits": "Matches Calendar",
-
     "Sense estadi": "No stadium",
     "Sense assignar": "Unassigned",
     "Sense equip": "No team",
     "Desconegut": "Unknown",
-
     "Manager": "Manager",
     "ID": "ID",
     "Veure": "View",
@@ -33,11 +30,9 @@
     "Cancelar": "Cancel",
     "Tornar al llistat": "Back to list",
     "Tornar al Calendari": "Back to Calendar",
-
     "Segur que vols esborrar aquesta jugadora?": "Are you sure you want to delete this player?",
     "Segur que vols esborrar aquest partit?": "Are you sure you want to delete this match?",
     "Estàs segur de voler esborrar aquest estadi?": "Are you sure you want to delete this stadium?",
-
     "Capacitat": "Capacity",
     "Crear Estadi": "Create Stadium",
     "Editar Estadi": "Edit Stadium",
@@ -46,7 +41,6 @@
     "Detall de l'Estadi": "Stadium Detail",
     "Nom de l'Estadi": "Stadium Name",
     "espectadors": "spectators",
-
     "Posició": "Position",
     "Dorsal": "Number",
     "Equip": "Team",
@@ -57,8 +51,9 @@
     "Editar Jugadora": "Edit Player",
     "Detall de la Jugadora": "Player Detail",
     "Data de Naixement": "Date of Birth",
+    "Edat": "Age",
+    "anys": "years",
     "Guardar Canvis": "Save Changes",
-
     "Local": "Home",
     "Visitant": "Away",
     "Equip Local": "Home Team",
@@ -78,12 +73,9 @@
     "Actualitzar Partit": "Update Match",
     "Guardar Partit": "Save Match",
     "Detall del Partit": "Match Detail",
-
     "Gols": "Goals",
     "Escut (Imatge)": "Badge (Image)",
     "Escut actual": "Current Badge",
-
-    
     "Equips": "Teams",
     "Estadis": "Stadiums",
     "Jugadores": "Players",
@@ -94,7 +86,5 @@
     "Log Out": "Log Out",
     "Log in": "Log in",
     "Register": "Register",
-
     "Guia de Futbol Femení": "Women's Football Guide"
-
 }

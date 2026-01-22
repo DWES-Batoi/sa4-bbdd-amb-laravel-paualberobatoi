@@ -28,10 +28,9 @@
                     </div>
                     
                     <div class="p-4 bg-gray-50 rounded">
-                        <span class="block text-gray-500 text-sm">{{ __('Data de Naixement') }}</span>
+                        <span class="block text-gray-500 text-sm">{{ __('Edat') }}</span>
                         <span class="font-bold text-gray-800">
-                            {{ \Carbon\Carbon::parse($jugadora->data_naixement)->format('d/m/Y') }}
-                            ({{ \Carbon\Carbon::parse($jugadora->data_naixement)->age }} {{ __('anys') }})
+                            {{ $jugadora->edat }} {{ __('anys') }}
                         </span>
                     </div>
                 </div>

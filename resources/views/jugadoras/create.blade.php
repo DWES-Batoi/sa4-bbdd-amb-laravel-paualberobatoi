@@ -39,8 +39,8 @@
         </div>
 
         <div>
-            <label for="data_naixement" class="block font-bold mb-1">{{ __('Data Naixement') }}:</label>
-            <input type="date" name="data_naixement" id="data_naixement" value="{{ old('data_naixement') }}" class="border p-2 w-full rounded">
+            <label for="edat" class="block font-bold mb-1">{{ __('Edat') }}:</label>
+            <input type="number" name="edat" id="edat" value="{{ old('edat') }}" class="border p-2 w-full rounded">
         </div>
 
         <div>

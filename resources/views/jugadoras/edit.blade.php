@@ -33,9 +33,9 @@
         </div>
 
         <div>
-            <label class="block text-sm font-medium">{{ __('Data Naixement') }}</label>
-            <input type="date" name="data_naixement" value="{{ old('data_naixement', $jugadora->data_naixement) }}" class="w-full border rounded p-2">
-            @error('data_naixement') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
+            <label class="block text-sm font-medium">{{ __('Edat') }}</label>
+            <input type="number" name="edat" value="{{ old('edat', $jugadora->edat) }}" class="w-full border rounded p-2">
+            @error('edat') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
         </div>
 
         <div>
