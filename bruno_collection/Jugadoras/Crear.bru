@@ -1,0 +1,25 @@
+meta {
+  name: Crear Jugadora
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8000/api/jugadores
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "nom": "Alexia Putellas",
+    "posicio": "Migcampista",
+    "dorsal": 11,
+    "edat": 30,
+    "equip_id": 1
+  }
+}

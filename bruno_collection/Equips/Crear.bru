@@ -1,0 +1,23 @@
+meta {
+  name: Crear Equipo
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8000/api/equips
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "nom": "Nuevo Equipo Bruno",
+    "estadi_id": 1,
+    "titols": 0
+  }
+}
