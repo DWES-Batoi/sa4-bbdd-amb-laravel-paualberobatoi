@@ -11,8 +11,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // ELIMINA cualquier línea aquí que diga algo como:
-        // $this->app->bind(JugadoraRepository::class, function ...);
+        $this->app->bind(\App\Repositories\BaseRepository::class, \App\Repositories\EquipRepository::class);
     }
 
     /**

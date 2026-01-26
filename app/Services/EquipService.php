@@ -3,15 +3,24 @@
 namespace App\Services;
 
 use App\Models\Equip;
-use App\Repositories\EquipRepository;
+use App\Repositories\BaseRepository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class EquipService
 {
-    // Injecció del repositori específic d'Equips
-    public function __construct(private EquipRepository $repo)
+    public function __construct(private BaseRepository $repo)
     {
+    }
+
+    public function llistar()
+    {
+        return $this->repo->getAll();
+    }
+
+    public function trobar($id)
+    {
+        return $this->repo->find($id);
     }
 
     public function guardar(array $data, ?UploadedFile $escut = null): Equip

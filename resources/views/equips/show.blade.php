@@ -37,6 +37,38 @@
             </div>
         </div>
 
+        <div class="mt-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">{{ __('Plantilla Actual') }}</h2>
+            
+            @if($equip->jugadoras->count() > 0)
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                    @foreach($equip->jugadoras as $jugadora)
+                        <div class="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition text-center group">
+                            <div class="relative h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
+                                @if($jugadora->foto)
+                                    <img src="{{ asset('storage/' . $jugadora->foto) }}" 
+                                         class="w-full h-full object-cover transition duration-300 group-hover:scale-110"
+                                         alt="{{ $jugadora->nom }}">
+                                @else
+                                    <span class="text-4xl">⚽</span>
+                                @endif
+                                <span class="absolute top-2 right-2 bg-yellow-400 text-yellow-900 font-bold w-8 h-8 flex items-center justify-center rounded-full shadow">
+                                    {{ $jugadora->dorsal }}
+                                </span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-gray-800 truncate">{{ $jugadora->nom }}</h3>
+                                <p class="text-xs text-gray-500 uppercase tracking-wide mt-1">{{ $jugadora->posicio }}</p>
+                                <p class="text-xs text-blue-600 mt-1">{{ $jugadora->edat }} {{ __('anys') }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <p class="text-gray-500 italic">{{ __('No hi ha jugadoras registrades en aquest equip.') }}</p>
+            @endif
+        </div>
+
         @auth
             <div class="mt-8 flex gap-4 border-t pt-6">
                 @if(auth()->user()->role === 'admin' || (auth()->user()->role === 'manager' && auth()->user()->equip_id === $equip->id))
