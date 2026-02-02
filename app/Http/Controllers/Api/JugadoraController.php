@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class JugadoraController extends BaseController
 {
+    public function __construct(private \App\Services\JugadoraService $service)
+    {
+    }
+
     public function index()
     {
         // Paginació recomanada
@@ -19,31 +23,43 @@ class JugadoraController extends BaseController
 
     public function show(Jugadora $jugadora)
     {
-        // return new JugadoraResource($jugadora);
-        // O si vols usar sendResponse per uniformitat (però Resource::make és estàndard)
         return $this->sendResponse(new JugadoraResource($jugadora), 'Jugadora retrieved successfully.');
     }
 
     public function store(JugadoraRequest $request)
     {
-        $jugadora = Jugadora::create($request->validated());
+        $data = $request->validated();
+        $foto = $request->file('foto');
+
+        // El servicio espera la foto como argumento separado
+        if (isset($data['foto'])) {
+            unset($data['foto']);
+        }
+
+        $jugadora = $this->service->guardar($data, $foto);
 
         return $this->sendResponse(new JugadoraResource($jugadora), 'Jugadora created successfully.', 201);
     }
 
     public function update(JugadoraRequest $request, Jugadora $jugadora)
     {
-        $jugadora->update($request->validated());
+        $data = $request->validated();
+        $foto = $request->file('foto');
+
+        // El servicio espera la foto como argumento separado
+        if (isset($data['foto'])) {
+            unset($data['foto']);
+        }
+
+        $jugadora = $this->service->actualitzar($jugadora->id, $data, $foto);
 
         return $this->sendResponse(new JugadoraResource($jugadora), 'Jugadora updated successfully.');
     }
 
     public function destroy(Jugadora $jugadora)
     {
-        $jugadora->delete();
+        $this->service->eliminar($jugadora->id);
 
         return $this->sendResponse([], 'Jugadora deleted successfully.', 204);
-        // Nota: 204 No Content a vegades no torna cos, així que 'sendResponse' pot ser redundant en cos, però útil per headers.
-        // Si vols ser estricte 204 sense cos: return response()->noContent();
     }
 }

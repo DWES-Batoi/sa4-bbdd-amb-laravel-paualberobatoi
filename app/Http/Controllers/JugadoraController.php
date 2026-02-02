@@ -55,11 +55,16 @@ class JugadoraController extends Controller
             'dorsal' => 'required|integer',
             'equip_id' => 'required|exists:equips,id',
             'posicio' => 'required|string',      
-            'data_naixement' => 'required|date',  
+            'edat' => 'required|integer|min:0|max:120',  
             'foto' => 'nullable|image|max:2048'   
         ]);
 
         $foto = $request->file('foto');
+
+        if (array_key_exists('foto', $data)) {
+            unset($data['foto']);
+        }
+
         $this->servei->actualitzar($jugadora->id, $data, $foto);
 
         return redirect()->route('jugadoras.index')

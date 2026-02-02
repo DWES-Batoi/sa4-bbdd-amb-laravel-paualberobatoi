@@ -22,11 +22,12 @@ class JugadoraRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => ['required', 'string', 'max:255'],
-            'equip_id' => ['required', 'exists:equips,id'],
+            'nom' => [$this->isMethod('post') ? 'required' : 'sometimes', 'string', 'max:255'],
+            'equip_id' => [$this->isMethod('post') ? 'required' : 'sometimes', 'exists:equips,id'],
             'posicio' => ['nullable', 'string', 'max:100'],
             'dorsal' => ['nullable', 'integer', 'min:0', 'max:99'],
             'edat' => ['nullable', 'integer', 'min:0', 'max:120'],
+            'foto' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
         ];
     }
 }

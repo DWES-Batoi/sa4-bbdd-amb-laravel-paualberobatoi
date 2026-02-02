@@ -46,8 +46,8 @@ class JugadoraCrudFeatureTest extends TestCase
         $response = $this->post(route('jugadoras.store'), [
             'nom' => 'Salma',
             'dorsal' => 7,
-            'posicio' => 'Davantera',        // ✅ ENVIAMOS POSICIÓN
-            'data_naixement' => '2003-11-13', // ✅ ENVIAMOS FECHA
+            'posicio' => 'Davantera',        
+            'edat' => 20,
             'equip_id' => $equip->id,
             'foto' => $foto
         ]);
@@ -69,8 +69,8 @@ class JugadoraCrudFeatureTest extends TestCase
         $response = $this->put(route('jugadoras.update', $jugadora), [
             'nom' => 'Nom Nou',
             'dorsal' => $jugadora->dorsal,
-            'posicio' => 'Defensa',           // ✅ ENVIAMOS POSICIÓN
-            'data_naixement' => '1990-01-01', // ✅ ENVIAMOS FECHA
+            'posicio' => 'Defensa',           
+            'edat' => 30,
             'equip_id' => $jugadora->equip_id
         ]);
 

@@ -12,8 +12,8 @@ class JugadoraFactory extends Factory
         return [
             'nom' => $this->faker->name('female'),
             'dorsal' => $this->faker->numberBetween(1, 99),
-            'posicio' => $this->faker->randomElement(['Portera', 'Defensa', 'Migcampista', 'Davantera']), // ✅ AÑADIDO
-            'data_naixement' => $this->faker->date('Y-m-d', '2005-01-01'), // ✅ AÑADIDO
+            'posicio' => $this->faker->randomElement(['Portera', 'Defensa', 'Migcampista', 'Davantera']),
+            'edat' => $this->faker->numberBetween(16, 35),
             'equip_id' => Equip::factory(),
             'foto' => null,
         ];

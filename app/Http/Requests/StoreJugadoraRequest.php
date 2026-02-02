@@ -16,7 +16,7 @@ class StoreJugadoraRequest extends FormRequest
         return [
             'nom' => 'required|min:3',
             'equip_id' => 'required|exists:equips,id',
-            'data_naixement' => 'required|date',
+            'edat' => 'required|integer|min:0|max:120',
             'posicio' => 'required|string',     
             'dorsal' => 'required|integer|between:1,99',
             'foto' => 'nullable|image|max:2048' 
