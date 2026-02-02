@@ -25,6 +25,11 @@ Route::middleware('auth:sanctum')->group(function () {
         ->except(['index', 'show'])
         ->names('api.equips');
 
+    Route::apiResource('estadis', \App\Http\Controllers\Api\EstadiController::class)
+        ->parameters(['estadis' => 'estadi'])
+        ->except(['index', 'show'])
+        ->names('api.estadis');
+
     Route::apiResource('partits', PartitController::class)
         ->parameters(['partits' => 'partit'])
         ->except(['index', 'show'])
@@ -45,6 +50,11 @@ Route::apiResource('equips', EquipController::class)
     ->parameters(['equips' => 'equip'])
     ->only(['index', 'show'])
     ->names('api.equips');
+
+Route::apiResource('estadis', \App\Http\Controllers\Api\EstadiController::class)
+    ->parameters(['estadis' => 'estadi'])
+    ->only(['index', 'show'])
+    ->names('api.estadis');
 
 Route::apiResource('partits', PartitController::class)
     ->parameters(['partits' => 'partit'])
